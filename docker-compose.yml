@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  nginx:
+    image: nginx
+    restart: unless-stopped
+    logging:
+      driver: 'json-file'
+      options: 
+        max-file: '2'
+        max-size: '1024m'
+    ports: 
+      - 80:80
+      - 443:443
+    volumes:
+      - $PWD/docker_nginx/nginx.conf:/etc/nginx/conf.d/nginx.conf
+      - $PWD/docker_nginx/certs:/etc/nginx/certs
+    
+  node:
+    image: 'node_v1'
+    restart: unless-stopped
+    logging:
+      driver: 'json-file'
+      options: 
+        max-file: '2'
+        max-size: '1024m'
